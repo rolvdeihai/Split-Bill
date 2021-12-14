@@ -1,0 +1,247 @@
+WindowManager:
+    MyGrid:
+    InputNama:
+    Hasil:
+    Akhir:
+
+<MyGrid>
+    name: "MyGrid"
+    item: item
+    quant: qty
+    price: harga
+    bill1: bill1
+    bill2: bill2
+    bill3: bill3
+    bill4: bill4
+
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+
+        GridLayout:
+            cols: 2
+            size_hint: 1, 0.5
+
+            Label:
+                text: "Barang"
+
+            TextInput:
+                id: item
+                multiline: False
+
+            Label:
+                text: "Kuantitas"
+
+            TextInput:
+                id: qty
+                multiline: False
+
+            Label:
+                text: "Harga"
+
+            TextInput:
+                id: harga
+                multiline: False
+
+        GridLayout:
+            cols: 4
+            size_hint: 1, 1.5
+            Label:
+                text: "No"
+                size_hint: 1, 0.3
+            Label:
+                text: "Nama Barang"
+                size_hint: 1, 0.3
+            Label:
+                text: "Kuantitas"
+                size_hint: 1, 0.3
+
+            Label:
+                text: "Harga"
+                size_hint: 1, 0.3
+
+            Label:
+                id: bill1
+                text: ""
+
+            Label:
+                id: bill2
+                text: ""
+
+            Label:
+                id: bill3
+                text: ""
+
+            Label:
+                id: bill4
+                text: ""
+
+        Button:
+            text: "Tambah"
+            size_hint : 1,0.2
+            on_release:
+                root.pressed()
+
+        Button:
+            text: "Selanjutnya"
+            size_hint: 1,0.2
+            on_release:
+                app.root.current = "InputNama"
+                root.manager.transition.direction = "left"
+        Button:
+            text: "Reset Bill"
+            size_hint: 1,0.2
+            on_release:
+                root.resetbill()
+
+<InputNama>
+    name: "InputNama"
+    penyokong: penyokong
+
+    GridLayout:
+        cols: 1
+
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Nama Pembayar"
+
+            TextInput:
+                id: penyokong
+                multiline: False
+
+        Button:
+            text: "Selanjutnya"
+            on_release:
+                app.root.current = "Hasil"
+                root.manager.transition.direction = "left"
+                root.next()
+
+        Button:
+            text: "Kembali"
+            on_release:
+                app.root.current = "MyGrid"
+                root.manager.transition.direction = "right"
+
+<Hasil>
+    name: "Hasil"
+    nobar: nobar
+    jubar: jubar
+    split1: split1
+    split2: split2
+    split3: split3
+    split4: split4
+
+    GridLayout:
+        cols: 1
+
+        GridLayout:
+            cols: 2
+            size_hint: 1, 2
+            Label:
+                text: "Nomor Barang"
+
+            TextInput:
+                id: nobar
+                multiline: False
+
+            Label:
+                text: "Jumlah Barang"
+
+            TextInput:
+                id: jubar
+                multiline: False
+
+        GridLayout:
+            cols: 4
+            size_hint: 1, 5
+            Label:
+                id: split1
+                text: ""
+
+            Label:
+                id: split2
+                text: ""
+
+            Label:
+                id: split3
+                text: ""
+
+            Label:
+                id: split4
+                text: ""
+
+        Button:
+            text: "Tambahkan"
+            on_release:
+                root.calc()
+
+        Button:
+            text: "Selanjutnya"
+            on_release:
+                app.root.current = "Akhir"
+                root.manager.transition.direction = "left"
+                root.deltext()
+
+        Button:
+            text: "Kembali"
+            on_release:
+                app.root.current = "InputNama"
+                root.manager.transition.direction = "right"
+
+<Akhir>
+    name: "Akhir"
+    sokong: sokong
+    splitresult1: splitresult1
+    splitresult2: splitresult2
+    splitresult3: splitresult3
+    splitresult4: splitresult4
+    showtotal: showtotal
+
+    GridLayout:
+        cols: 1
+
+        Label:
+            id: sokong
+            text: "Belum Ada"
+
+        GridLayout:
+            cols: 4
+            Label:
+                id: splitresult1
+                text: ""
+
+            Label:
+                id: splitresult2
+                text: ""
+
+            Label:
+                id: splitresult3
+                text: ""
+
+            Label:
+                id: splitresult4
+                text: ""
+
+        Label:
+            id: showtotal
+            text: ""
+
+        Button:
+            text: "Tampilkan Hasil"
+            size_hint: 1, 0.3
+            on_release:
+                root.showresult()
+
+        Button:
+            text: "Kembali"
+            size_hint: 1, 0.3
+            on_release:
+                app.root.current = "Hasil"
+                root.manager.transition.direction = "right"
+
+        Button:
+            text: "Reset"
+            size_hint: 1, 0.3
+            on_release:
+                root.reset()
