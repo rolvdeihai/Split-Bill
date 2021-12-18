@@ -9,7 +9,6 @@ from kivy.core.window import Window
 from kivy.properties import ObjectProperty
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
-from tabulate import tabulate
 
 class MyGrid(Screen):
     global index
@@ -33,32 +32,33 @@ class MyGrid(Screen):
     price = []
 
     def pressed(self):
-        item.append(self.item.text)
-        quant.append(int(self.quant.text))
-        price.append(int(self.price.text))
+        if(self.item.text != '' or self.quant.text != '' or self.price.text != ''):
+            item.append(self.item.text)
+            quant.append(int(self.quant.text))
+            price.append(int(self.price.text))
 
-        global index
+            global index
 
-        tempitem = self.item.text
-        tempquan = int(self.quant.text)
-        tempprice = int(self.price.text)
+            tempitem = self.item.text
+            tempquan = int(self.quant.text)
+            tempprice = int(self.price.text)
 
-        if(index == 0):
-            self.bill1.text = ""
-            self.bill2.text = ""
-            self.bill3.text = ""
-            self.bill4.text = ""
+            if(index == 0):
+                self.bill1.text = ""
+                self.bill2.text = ""
+                self.bill3.text = ""
+                self.bill4.text = ""
 
-        #self.bill.text += str(int(index+1)) + " | " + str(tempitem) + " | " + str(tempquan) + " | " + str(tempprice) + "\n"
+            #self.bill.text += str(int(index+1)) + " | " + str(tempitem) + " | " + str(tempquan) + " | " + str(tempprice) + "\n"
 
-        self.bill1.text += str(int(index+1)) + "\n"
-        self.bill2.text += str(tempitem) + "\n"
-        self.bill3.text += str(tempquan) + "\n"
-        self.bill4.text += str(tempprice) + "\n"
+            self.bill1.text += str(int(index+1)) + "\n"
+            self.bill2.text += str(tempitem) + "\n"
+            self.bill3.text += str(tempquan) + "\n"
+            self.bill4.text += str(tempprice) + "\n"
 
-        print(index + 1, " | ", item, " | ", quant, " | ", price, " | \n")
+            print(index + 1, " | ", item, " | ", quant, " | ", price, " | \n")
 
-        index += 1
+            index += 1
 
         self.item.text = ""
         self.quant.text = ""
@@ -102,10 +102,10 @@ class Hasil(Screen):
     global total
     global intnob
     global intjub
-    global kontol1
-    global kontol2
-    global kontol3
-    global kontol4
+    global string1
+    global string2
+    global string3
+    global string4
 
     split1 = ObjectProperty(None)
     split2 = ObjectProperty(None)
@@ -118,29 +118,30 @@ class Hasil(Screen):
     total = 0
 
     def calc(self):
-        intnob = int(self.nobar.text)
-        intjub = int(self.jubar.text)
+        if(self.nobar.text != '' or self.jubar.text != ''):
+            intnob = int(self.nobar.text)
+            intjub = int(self.jubar.text)
 
-        satuan = price[(intnob - 1)] / quant[(intnob - 1)] * (intjub)
-        #self.split.text += str(int(index)) + " | " + str(item[intnob - 1]) + " | " + str(intjub) + " | " + str(satuan) + "\n"
-        self.split1.text += str(int(index)) + "\n"
-        self.split2.text += str(item[intnob - 1]) + "\n"
-        self.split3.text += str(intjub) + "\n"
-        self.split4.text += str(satuan) + "\n"
+            satuan = price[(intnob - 1)] / quant[(intnob - 1)] * (intjub)
+            #self.split.text += str(int(index)) + " | " + str(item[intnob - 1]) + " | " + str(intjub) + " | " + str(satuan) + "\n"
+            self.split1.text += str(int(index)) + "\n"
+            self.split2.text += str(item[intnob - 1]) + "\n"
+            self.split3.text += str(intjub) + "\n"
+            self.split4.text += str(satuan) + "\n"
 
-        global kontol1
-        global kontol2
-        global kontol3
-        global kontol4
-        kontol1 = self.split1.text
-        kontol2 = self.split2.text
-        kontol3 = self.split3.text
-        kontol4 = self.split4.text
-        print(item[intnob - 1], " ", intjub, " ", satuan, " ")
-        global total
+            global string1
+            global string2
+            global string3
+            global string4
+            string1 = self.split1.text
+            string2 = self.split2.text
+            string3 = self.split3.text
+            string4 = self.split4.text
+            print(item[intnob - 1], " ", intjub, " ", satuan, " ")
+            global total
 
-        total += satuan
-        print("Total = ", total)
+            total += satuan
+            print("Total = ", total)
 
         self.nobar.text = ""
         self.jubar.text = ""
@@ -176,32 +177,33 @@ class Akhir(Screen):
     showtotal = ObjectProperty(None)
 
     def showresult(self):
-        self.sokong.text = str(chris)
-        #self.splitresult.text = str(kontol) + "Total = Rp. " + str(total)
-        self.splitresult1.text = str(kontol1)
-        self.splitresult2.text = str(kontol2)
-        self.splitresult3.text = str(kontol3)
-        self.splitresult4.text = str(kontol4)
-        self.showtotal.text = "Total = Rp. " + str(total)
+        if(string1 != '' or string2 != '' or string3 != '' or string4 != ''):
+            self.sokong.text = str(chris)
+            #self.splitresult.text = str(string) + "Total = Rp. " + str(total)
+            self.splitresult1.text = str(string1)
+            self.splitresult2.text = str(string2)
+            self.splitresult3.text = str(string3)
+            self.splitresult4.text = str(string4)
+            self.showtotal.text = "Total = Rp. " + str(total)
 
     def reset(self):
         global total
         global chris
         global split
-        global kontol1
-        global kontol2
-        global kontol3
-        global kontol4
+        global string1
+        global string2
+        global string3
+        global string4
         global nobar
         global jubar
         nobar = 0
         jubar = 0
         total = 0
         chris = ""
-        kontol1 = ""
-        kontol2 = ""
-        kontol3 = ""
-        kontol4 = ""
+        string1 = ""
+        string2 = ""
+        string3 = ""
+        string4 = ""
         self.splitresult1.text = ""
         self.splitresult2.text = ""
         self.splitresult3.text = ""
